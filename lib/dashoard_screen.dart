@@ -293,8 +293,10 @@ class DashoardScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Shimmer.fromColors(
-        baseColor: Colors.grey.shade300,
-        highlightColor: Colors.grey.shade100,
+        baseColor: !model.isOnDark ? Colors.grey.shade200 : const Color.fromARGB(255, 210, 233, 247),
+        highlightColor: !model.isOnDark
+            ? Color.fromARGB(255, 199, 223, 243).withOpacity(.92)
+            :  const Color.fromARGB(255, 201, 195, 195),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
