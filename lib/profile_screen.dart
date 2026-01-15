@@ -29,16 +29,33 @@ class ProfileScreen extends StatelessWidget {
     return ViewModelBuilder<ViewModel>.reactive(
       viewModelBuilder: () => ViewModel(),
       onViewModelReady: (model) async {
+        print('preferences::::${model.session.usersData}');
         model.getSaveSharedPreferenceDarkMode();
         await model.getTenant(context);
-        emailController.text = model.getTetantResponseModel?.data?.contactEmail ?? '';
-        nameController.text = model.getTetantResponseModel?.data?.contactEmail ?? '';
-        stateController.text = model.getTetantResponseModel?.data?.state ?? '';
-        lgaController.text = model.getTetantResponseModel?.data?.lga ?? '';
+        emailController.text =
+            model.getTetantResponseModel?.data?.contactEmail ??
+            model.session.usersData['contactEmail'] ??
+            '';
+        nameController.text =
+            model.getTetantResponseModel?.data?.contactPersonName ??
+            model.session.usersData['contactPersonName'] ??
+            '';
+        stateController.text =
+            model.getTetantResponseModel?.data?.state ??
+            model.session.usersData['state'] ??
+            '';
+        lgaController.text =
+            model.getTetantResponseModel?.data?.lga ??
+            model.session.usersData['lga'] ??
+            '';
         addressController.text =
-            model.getTetantResponseModel?.data?.businessAddress ?? '';
+            model.getTetantResponseModel?.data?.businessAddress ??
+            model.session.usersData['businessAddress'] ??
+            '';
         countryController.text =
-            model.getTetantResponseModel?.data?.country ?? '';
+            model.getTetantResponseModel?.data?.country ??
+            model.session.usersData['country'] ??
+            '';
       },
       disposeViewModel: false,
       builder: (_, ViewModel model, _) {

@@ -101,6 +101,7 @@ class ViewModel extends BaseViewModel {
   void signIn(context, {LoginEntityModel? signInEntity}) async {
     try {
       _isLoading = true;
+
       _loginResponseModel = await runBusyFuture(
         repositoryImply.signIn(signInEntity!),
         throwException: true,
@@ -124,10 +125,12 @@ class ViewModel extends BaseViewModel {
   Future<void> getTenant(context) async {
     try {
       _isLoading = true;
+      
       _getTetantResponseModel = await runBusyFuture(
         repositoryImply.getTenant(),
         throwException: true,
       );
+      await Future.delayed(Duration(seconds: 3));
       _isLoading = false;
     } catch (e) {
       _isLoading = false;

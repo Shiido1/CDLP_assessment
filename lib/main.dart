@@ -36,7 +36,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: StackedService.navigatorKey,
       onGenerateRoute: StackedRouter().onGenerateRoute,
-      initialRoute: Routes.myHomePage,
+      initialRoute: SharedPreferencesService.instance.isLogin
+          ? Routes.dashoardScreen
+          : Routes.myHomePage,
     );
   }
 }

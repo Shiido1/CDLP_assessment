@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, must_be_immutable
+// ignore_for_file: deprecated_member_use, must_be_immutable, unnecessary_null_comparison
 
 import 'package:assessment/core/core_folder/app/app.router.dart';
 import 'package:assessment/main.dart';
@@ -70,8 +70,11 @@ class DashoardScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      SizedBox(height: 30),
                       if (model.getTetantResponseModel != null &&
-                          model.getTetantResponseModel!.data!.logo!.url != '')
+                              model.getTetantResponseModel!.data!.logo!.url !=
+                                  '' ||
+                          model.session.usersData != null)
                         GestureDetector(
                           onTap: () =>
                               navigate.navigateTo(Routes.profileScreen),
@@ -79,7 +82,7 @@ class DashoardScreen extends StatelessWidget {
                             elevation: 3,
                             margin: EdgeInsets.symmetric(
                               horizontal: 20,
-                              vertical: 80.0,
+                              vertical: 40.0,
                             ),
                             color: !model.isOnDark
                                 ? Colors.white.withOpacity(.444)
@@ -110,17 +113,31 @@ class DashoardScreen extends StatelessWidget {
                                 children: [
                                   Center(
                                     child: CircleAvatar(
-                                      radius:
-                                          44.40, // Adjust the size as needed
-                                      backgroundImage: NetworkImage(
-                                        model
-                                            .getTetantResponseModel!
-                                            .data!
-                                            .logo!
-                                            .url!,
+                                      radius: 44.4,
+                                      backgroundColor: Colors.grey.shade200,
+                                      child: ClipOval(
+                                        child: Image.network(
+                                          model
+                                                  .session
+                                                  .usersData['logo']?['url'] ??
+                                              '',
+                                          width: 88.8,
+                                          height: 88.8,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                                return Image.asset(
+                                                  'assets/image/profile.jpeg',
+                                                  fit: BoxFit.cover,
+                                                  width: 88.8,
+                                                  height: 88.8,
+                                                );
+                                              },
+                                        ),
                                       ),
                                     ),
                                   ),
+
                                   SizedBox(height: 20),
                                   TextView(
                                     text:
@@ -128,6 +145,9 @@ class DashoardScreen extends StatelessWidget {
                                             .getTetantResponseModel
                                             ?.data
                                             ?.contactPersonName ??
+                                        model
+                                            .session
+                                            .usersData['contactPersonName'] ??
                                         '',
                                     textStyle: GoogleFonts.abel(
                                       fontSize: 20,
@@ -143,6 +163,7 @@ class DashoardScreen extends StatelessWidget {
                                             .getTetantResponseModel
                                             ?.data
                                             ?.tenantType ??
+                                        model.session.usersData['tenantType'] ??
                                         '',
                                     textStyle: GoogleFonts.roboto(
                                       fontSize: 16.20,
@@ -158,6 +179,9 @@ class DashoardScreen extends StatelessWidget {
                                             .getTetantResponseModel
                                             ?.data
                                             ?.contactEmail ??
+                                        model
+                                            .session
+                                            .usersData['contactEmail'] ??
                                         '',
                                     textStyle: GoogleFonts.economica(
                                       fontSize: 18.20,
@@ -167,10 +191,10 @@ class DashoardScreen extends StatelessWidget {
                                   ),
                                   TextView(
                                     text:
-                                        '${model.getTetantResponseModel?.data?.businessAddress}, ${model.getTetantResponseModel?.data?.state}, ${model.getTetantResponseModel?.data?.lga}',
-                                    maxLines: 2,
+                                        '${model.getTetantResponseModel?.data?.businessAddress ?? model.session.usersData['businessAddress'] ?? ''}, ${model.getTetantResponseModel?.data?.state ?? model.session.usersData['state'] ?? ''}, ${model.getTetantResponseModel?.data?.lga ?? model.session.usersData['lga'] ?? ''}',
+
                                     textStyle: GoogleFonts.cormorant(
-                                      fontSize: 22.0,
+                                      fontSize: 18.20,
                                       fontWeight: FontWeight.w500,
                                       color: !model.isOnDark
                                           ? Colors.black
@@ -185,15 +209,14 @@ class DashoardScreen extends StatelessWidget {
                           ),
                         ),
                       if (model.isLoading)
-                        SizedBox(
-                          width: 200.0,
-                          height: 100.0,
-                          child: Shimmer.fromColors(
-                            baseColor: Colors.white10,
-                            highlightColor: Colors.blue.withOpacity(.2),
-                            child: Container(width: 40, height: 40),
-                          ),
-                        )
+                        ...[
+                          1,
+                          2,
+                          3,
+                          4,
+                          5,
+                          6,
+                        ].map((e) => _buildDashboardShimmer(model))
                       else
                         ...model.transactionList.map(
                           (e) => Padding(
@@ -263,6 +286,53 @@ class DashoardScreen extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildDashboardShimmer(ViewModel model) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey.shade300,
+        highlightColor: Colors.grey.shade100,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 340,
+              height: 18,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: Colors.white,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            // Type
+            Container(
+              width: 300,
+              height: 12,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: Colors.white,
+              ),
+            ),
+
+            const SizedBox(height: 6.10),
+
+            // Email
+            Container(
+              width: 290,
+              height: 12,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
