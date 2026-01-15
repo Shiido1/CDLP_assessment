@@ -1,0 +1,239 @@
+import 'package:assessment/widgets/text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+// ignore: must_be_immutable
+class TextFormWidget extends StatelessWidget {
+  final TextCapitalization? textCapitalization;
+  final String? label;
+  final String? floatingLabel;
+  final String? hint;
+  final IconData? prefixIcon;
+  final IconData? suffixIcon;
+  final Widget? suffixWidget;
+  final Widget? prefixWidget;
+  final FormFieldValidator<String>? validator;
+  final VoidCallback? onPasswordToggle;
+  final Function(String)? onChange;
+  final Function(String)? onEditCompleted;
+  final String? initialValue;
+  final String? text;
+  final FocusNode? focusNode;
+  List<TextInputFormatter>? inputFormatters;
+  final TextEditingController? controller;
+  final AutovalidateMode? autoValidateMode;
+  final bool? obscureText;
+  final bool isShowHint;
+  final bool? readOnly;
+  final bool? isGender;
+  final bool? isFeedback;
+  final bool? isFilled;
+  final bool? alignLabelWithHint;
+  final Function()? onTapped;
+  TextStyle? labelStyle;
+  TextStyle? style;
+  final TextInputType? keyboardType;
+  final Color? suffixIconColor;
+  final Color? borderColor;
+  final Color? cursorColor;
+  final Color labelColor;
+  final Color hintColor;
+  final Color hintColor2;
+  final Color? fillColor;
+  final Color? prefixIconColor;
+  final Key? formKey;
+  final double? size;
+  final int? maxline;
+  final int? minline;
+  final double? borderTopRight;
+  double? hintSize;
+  final double? borderTopLeft;
+  final double? borderBottomRight;
+  final double? borderBottomLeft;
+  final FloatingLabelBehavior? floatingLabelBehavior;
+
+  TextFormWidget({
+    Key? key,
+    this.textCapitalization,
+    this.label,
+    this.floatingLabel,
+    this.hint,
+    this.isFilled = false,
+    this.alignLabelWithHint = false,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.suffixWidget,
+    this.prefixWidget,
+    this.validator,
+    this.onPasswordToggle,
+    this.initialValue,
+    this.inputFormatters,
+    this.controller,
+    this.autoValidateMode,
+    this.obscureText = false,
+    this.isGender = false,
+    this.readOnly = false,
+    this.isFeedback = false,
+    this.isShowHint = false,
+    this.onTapped,
+    this.labelStyle,
+    this.style,
+    this.onEditCompleted,
+    this.keyboardType,
+    this.suffixIconColor,
+    this.cursorColor = Colors.black,
+    this.fillColor = Colors.grey,
+    this.prefixIconColor,
+    this.onChange,
+    this.formKey,
+    this.size,
+    this.text,
+    this.hintSize = 18,
+    this.borderColor = Colors.transparent,
+    this.labelColor = Colors.black,
+    this.hintColor2 = Colors.grey,
+    this.maxline = 1,
+    this.borderBottomLeft,
+    this.borderBottomRight,
+    this.borderTopLeft,
+    this.floatingLabelBehavior = FloatingLabelBehavior.auto,
+    this.borderTopRight,
+    this.minline,
+    this.focusNode,
+    this.hintColor = Colors.black,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        hint != null
+            ? Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  TextView(
+                    text: hint ?? '',
+                    textStyle: TextStyle(
+                      fontFamily: 'Arial',
+                      fontSize: hintSize!,
+                      fontWeight: FontWeight.w500,
+                      color: hintColor,
+                    ),
+                  ),
+
+                  !isShowHint
+                      ? Positioned(
+                          right: -12.10,
+                          child: TextView(
+                            text: '*',
+                            textStyle: TextStyle(
+                              fontFamily: 'Arial',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.red,
+                            ),
+                          ),
+                        )
+                      : SizedBox.shrink(),
+                ],
+              )
+            : const SizedBox.shrink(),
+        SizedBox(height: hint != null ? 10.2 : 0),
+        TextFormField(
+          textCapitalization: TextCapitalization.words,
+          keyboardType: keyboardType,
+          focusNode: focusNode,
+          inputFormatters: inputFormatters,
+          decoration: InputDecoration(
+            labelStyle: labelStyle,
+            labelText: readOnly! ? null : label ?? '',
+            hintText: readOnly! ? label ?? '' : null,
+            hintStyle: TextStyle(
+              fontSize: 15.20,
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Arial',
+              color: hintColor2,
+            ),
+            floatingLabelBehavior: floatingLabelBehavior,
+            filled: isFilled,
+            fillColor: fillColor,
+            focusColor: Colors.black,
+            alignLabelWithHint: alignLabelWithHint,
+            contentPadding: EdgeInsets.fromLTRB(20, 12.60, 20, 12.60),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(width: 1, color: Colors.transparent),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(borderTopLeft!),
+                topRight: Radius.circular(borderTopRight!),
+                bottomLeft: Radius.circular(borderBottomLeft!),
+                bottomRight: Radius.circular(borderBottomRight!),
+              ),
+              borderSide: BorderSide(width: 2, color: borderColor!),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+              borderSide: BorderSide(width: 1, color: Colors.grey),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(borderTopLeft!),
+                topRight: Radius.circular(borderTopRight!),
+                bottomLeft: Radius.circular(borderBottomLeft!),
+                bottomRight: Radius.circular(borderBottomRight!),
+              ),
+
+              borderSide: BorderSide(width: 1, color: borderColor!),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderSide: BorderSide(width: 1, color: Colors.red),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderSide: BorderSide(width: 1, color: Colors.redAccent),
+            ),
+            prefixIcon:
+                prefixWidget ??
+                (prefixIcon != null
+                    ? IconButton(
+                        onPressed: onPasswordToggle,
+                        icon: Icon(prefixIcon, color: prefixIconColor),
+                      )
+                    : null),
+            suffixIcon: Padding(
+              padding: EdgeInsets.all(1.5),
+              child:
+                  suffixWidget ??
+                  (suffixIcon != null
+                      ? IconButton(
+                          onPressed: onPasswordToggle,
+                          iconSize: size,
+                          icon: Icon(suffixIcon, color: suffixIconColor),
+                        )
+                      : null),
+            ),
+          ),
+          obscureText: obscureText!,
+          controller: controller,
+          readOnly: readOnly!,
+          onTap: onTapped,
+          key: formKey,
+          maxLines: maxline,
+          minLines: minline,
+          cursorColor: cursorColor,
+          onChanged: onChange,
+          onFieldSubmitted: onEditCompleted,
+          validator: validator,
+          style:
+              style ??
+              TextStyle(fontSize: 16.20, fontWeight: FontWeight.w500),
+        ),
+      ],
+    );
+  }
+}
