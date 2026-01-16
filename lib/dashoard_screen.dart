@@ -243,7 +243,7 @@ class DashoardScreen extends StatelessWidget {
                                           text:
                                               'Transaction No: ${e.transactionNumber}',
                                           textStyle: GoogleFonts.abel(
-                                            fontSize: 22.20,
+                                            fontSize: 20,
                                             fontWeight: FontWeight.w400,
                                             color: !model.isOnDark
                                                 ? Colors.black
@@ -252,11 +252,12 @@ class DashoardScreen extends StatelessWidget {
                                         ),
                                         SizedBox(height: 4),
                                         SizedBox(
-                                          width: 300,
+                                          width: 268,
                                           child: TextView(
                                             text:
                                                 'Description: ${e.description}',
                                             maxLines: 3,
+                                            textOverflow: TextOverflow.ellipsis,
                                             textStyle: GoogleFonts.roboto(
                                               fontSize: 15.80,
                                               fontWeight: FontWeight.w300,
@@ -291,7 +292,7 @@ class DashoardScreen extends StatelessWidget {
 
   Widget _buildDashboardShimmer(ViewModel model) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(bottom: 20.0,left: 20,right: 20),
       child: Shimmer.fromColors(
         baseColor: !model.isOnDark ? Colors.grey.shade200 : const Color.fromARGB(255, 210, 233, 247),
         highlightColor: !model.isOnDark

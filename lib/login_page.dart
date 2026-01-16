@@ -83,207 +83,209 @@ class _MyHomePageState extends State<MyHomePage> {
               Center(
                 child: Form(
                   key: formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 40),
-                      Card(
-                        elevation: 3,
-                        margin: EdgeInsets.symmetric(horizontal: 28.2),
-                        color: !model.isOnDark
-                            ? Colors.white.withOpacity(.444)
-                            : Colors.white.withOpacity(.012),
-                        shadowColor: !model.isOnDark
-                            ? Colors.white
-                            : Colors.transparent,
-                        surfaceTintColor: Colors.transparent, // Material 3 fix
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: !model.isOnDark
-                                    ? Colors.white.withOpacity(0.68)
-                                    : Colors
-                                          .transparent, // 👈 controls "how white"
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: Colors.white.withOpacity(
-                                    0.9,
-                                  ), // optional glass border
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 40),
+                        Card(
+                          elevation: 3,
+                          margin: EdgeInsets.symmetric(horizontal: 28.2),
+                          color: !model.isOnDark
+                              ? Colors.white.withOpacity(.444)
+                              : Colors.white.withOpacity(.012),
+                          shadowColor: !model.isOnDark
+                              ? Colors.white
+                              : Colors.transparent,
+                          surfaceTintColor: Colors.transparent, // Material 3 fix
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: !model.isOnDark
+                                      ? Colors.white.withOpacity(0.68)
+                                      : Colors
+                                            .transparent, // 👈 controls "how white"
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: Colors.white.withOpacity(
+                                      0.9,
+                                    ), // optional glass border
+                                  ),
                                 ),
-                              ),
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  TextView(
-                                    text: 'CDLP Login',
-
-                                    textStyle: TextStyle(
-                                      fontFamily: 'GoogleSans',
-                                      fontSize: 23.30,
-                                      fontWeight: FontWeight.w600,
-                                      color: !model.isOnDark
-                                          ? Colors.blue
-                                          : Colors.white,
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextView(
+                                      text: 'CDLP Login',
+                    
+                                      textStyle: TextStyle(
+                                        fontFamily: 'GoogleSans',
+                                        fontSize: 23.30,
+                                        fontWeight: FontWeight.w600,
+                                        color: !model.isOnDark
+                                            ? Colors.blue
+                                            : Colors.white,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(height: 22),
-                                  TextFormWidget(
-                                    hint: 'Phone Number',
-                                    cursorColor: model.isOnDark
-                                        ? Colors.white
-                                        : Colors.black,
-                                    hintColor: !model.isOnDark
-                                        ? Colors.black
-                                        : Colors.white,
-                                    label: 'Enter phone number',
-                                    labelStyle: TextStyle(
-                                      color: !model.isOnDark
-                                          ? Colors.grey
-                                          : Colors.white,
-                                    ),
-                                    borderTopLeft: 12,
-                                    borderTopRight: 12,
-                                    borderBottomLeft: 12,
-                                    borderBottomRight: 12,
-                                    isFilled: !model.isOnDark ? false : true,
-                                    fillColor: !model.isOnDark
-                                        ? Colors.white
-                                        : Colors.white.withOpacity(.3),
-                                    borderColor: Colors.blue,
-                                    controller: phoneNoController,
-                                    keyboardType: TextInputType.number,
-                                    validator: AppValidator.validatePhone(),
-                                    style: TextStyle(
-                                      // 👈 THIS controls input text
-                                      color: !model.isOnDark
+                                    SizedBox(height: 22),
+                                    TextFormWidget(
+                                      hint: 'Phone Number',
+                                      cursorColor: model.isOnDark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      hintColor: !model.isOnDark
                                           ? Colors.black
                                           : Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  SizedBox(height: 20),
-                                  TextFormWidget(
-                                    hint: 'Password',
-                                    label: 'Enter password',
-                                    hintColor: !model.isOnDark
-                                        ? Colors.black
-                                        : Colors.white,
-                                    labelStyle: TextStyle(
-                                      color: !model.isOnDark
-                                          ? Colors.grey
-                                          : Colors.white,
-                                    ),
-                                    borderTopLeft: 12,
-                                    borderTopRight: 12,
-                                    borderBottomLeft: 12,
-                                    borderBottomRight: 12,
-                                    isFilled: !model.isOnDark ? false : true,
-                                    fillColor: !model.isOnDark
-                                        ? Colors.white
-                                        : Colors.white.withOpacity(.3),
-                                    borderColor: Colors.blue,
-                                    controller: pinController,
-                                    keyboardType: TextInputType.number,
-                                    validator: AppValidator.validateString(),
-                                    style: TextStyle(
-                                      // 👈 THIS controls input text
-                                      color: !model.isOnDark
-                                          ? Colors.black
-                                          : Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                    cursorColor: model.isOnDark
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
-                                  SizedBox(height: 16),
-
-                                  RichText(
-                                    text: TextSpan(
+                                      label: 'Enter phone number',
+                                      labelStyle: TextStyle(
+                                        color: !model.isOnDark
+                                            ? Colors.grey
+                                            : Colors.white,
+                                      ),
+                                      borderTopLeft: 12,
+                                      borderTopRight: 12,
+                                      borderBottomLeft: 12,
+                                      borderBottomRight: 12,
+                                      isFilled: !model.isOnDark ? false : true,
+                                      fillColor: !model.isOnDark
+                                          ? Colors.white
+                                          : Colors.white.withOpacity(.3),
+                                      borderColor: Colors.blue,
+                                      controller: phoneNoController,
+                                      keyboardType: TextInputType.number,
+                                      validator: AppValidator.validatePhone(),
                                       style: TextStyle(
+                                        // 👈 THIS controls input text
                                         color: !model.isOnDark
                                             ? Colors.black
-                                            : Colors.blue,
+                                            : Colors.white,
                                         fontSize: 16,
-                                        fontWeight: FontWeight.w400,
                                       ),
-                                      children: [
-                                        const TextSpan(
-                                          text: "Don’t have an account? ",
+                                    ),
+                                    SizedBox(height: 20),
+                                    TextFormWidget(
+                                      hint: 'Password',
+                                      label: 'Enter password',
+                                      hintColor: !model.isOnDark
+                                          ? Colors.black
+                                          : Colors.white,
+                                      labelStyle: TextStyle(
+                                        color: !model.isOnDark
+                                            ? Colors.grey
+                                            : Colors.white,
+                                      ),
+                                      borderTopLeft: 12,
+                                      borderTopRight: 12,
+                                      borderBottomLeft: 12,
+                                      borderBottomRight: 12,
+                                      isFilled: !model.isOnDark ? false : true,
+                                      fillColor: !model.isOnDark
+                                          ? Colors.white
+                                          : Colors.white.withOpacity(.3),
+                                      borderColor: Colors.blue,
+                                      controller: pinController,
+                                      keyboardType: TextInputType.number,
+                                      validator: AppValidator.validateString(),
+                                      style: TextStyle(
+                                        // 👈 THIS controls input text
+                                        color: !model.isOnDark
+                                            ? Colors.black
+                                            : Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                      cursorColor: model.isOnDark
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                    SizedBox(height: 16),
+                    
+                                    RichText(
+                                      text: TextSpan(
+                                        style: TextStyle(
+                                          color: !model.isOnDark
+                                              ? Colors.black
+                                              : Colors.blue,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
                                         ),
-                                        TextSpan(
-                                          text: "Sign Up",
-                                          style: TextStyle(
-                                            color: !model.isOnDark
-                                                ? Colors.blue
-                                                : Colors.black,
-                                            decoration:
-                                                TextDecoration.underline,
+                                        children: [
+                                          const TextSpan(
+                                            text: "Don’t have an account? ",
                                           ),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () {},
+                                          TextSpan(
+                                            text: "Sign Up",
+                                            style: TextStyle(
+                                              color: !model.isOnDark
+                                                  ? Colors.blue
+                                                  : Colors.black,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {},
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 50),
+                                    ButtonWidget(
+                                      border: 10,
+                                      buttonColor: Colors.blue,
+                                      buttonText: 'Sign In',
+                                      color: Colors.white,
+                                      buttonBorderColor: Colors.transparent,
+                                      isLoading: model.isLoading,
+                                      onPressed: () {
+                                        if (formKey.currentState!.validate()) {
+                                          model.signIn(
+                                            context,
+                                            signInEntity: LoginEntityModel(
+                                              phone:
+                                                  '+234${phoneNoController.text.trim()}',
+                                              pin: pinController.text.trim(),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                    SizedBox(height: 30),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        TextView(
+                                          text: 'Dark Mode',
+                                          textStyle: GoogleFonts.aBeeZee(
+                                            fontSize: 15.30,
+                                            fontWeight: FontWeight.w400,
+                                            color: !model.isOnDark
+                                                ? Colors.black
+                                                : Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(width: 12.20),
+                                        Switch(
+                                          activeColor: Colors.blue,
+                                          value: model
+                                              .isOnDark, // The current value of the switch
+                                          onChanged: model
+                                              .toggleSwitch, // Callback function when the user toggles the switch
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  SizedBox(height: 50),
-                                  ButtonWidget(
-                                    border: 10,
-                                    buttonColor: Colors.blue,
-                                    buttonText: 'Sign In',
-                                    color: Colors.white,
-                                    buttonBorderColor: Colors.transparent,
-                                    isLoading: model.isLoading,
-                                    onPressed: () {
-                                      if (formKey.currentState!.validate()) {
-                                        model.signIn(
-                                          context,
-                                          signInEntity: LoginEntityModel(
-                                            phone:
-                                                '+234${phoneNoController.text.trim()}',
-                                            pin: pinController.text.trim(),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                  SizedBox(height: 30),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      TextView(
-                                        text: 'Dark Mode',
-                                        textStyle: GoogleFonts.aBeeZee(
-                                          fontSize: 15.30,
-                                          fontWeight: FontWeight.w400,
-                                          color: !model.isOnDark
-                                              ? Colors.black
-                                              : Colors.white,
-                                        ),
-                                      ),
-                                      SizedBox(width: 12.20),
-                                      Switch(
-                                        activeColor: Colors.blue,
-                                        value: model
-                                            .isOnDark, // The current value of the switch
-                                        onChanged: model
-                                            .toggleSwitch, // Callback function when the user toggles the switch
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 20),
-                                ],
+                                    SizedBox(height: 20),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

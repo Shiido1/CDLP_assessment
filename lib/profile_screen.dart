@@ -29,7 +29,6 @@ class ProfileScreen extends StatelessWidget {
     return ViewModelBuilder<ViewModel>.reactive(
       viewModelBuilder: () => ViewModel(),
       onViewModelReady: (model) async {
-        print('preferences::::${model.session.usersData}');
         model.getSaveSharedPreferenceDarkMode();
         await model.getTenant(context);
         emailController.text =
@@ -64,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
           body: Stack(
             children: [
               Positioned(
-                top: 31,
+                top: 24,
                 child: Padding(
                   padding: EdgeInsets.only(
                     top: 40.0,
@@ -78,7 +77,7 @@ class ProfileScreen extends StatelessWidget {
                         color: !model.isOnDark ? Colors.black : Colors.white,
                       ),
 
-                      SizedBox(width: 180),
+                      SizedBox(width: 146),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -100,6 +99,7 @@ class ProfileScreen extends StatelessWidget {
                             onChanged: model
                                 .toggleSwitch, // Callback function when the user toggles the switch
                           ),
+                          SizedBox(width: 38),
                         ],
                       ),
                     ],
@@ -152,346 +152,368 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: Form(
                   key: formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 100),
-                      Card(
-                        elevation: 3,
-                        margin: EdgeInsets.symmetric(horizontal: 28.2),
-                        color: !model.isOnDark
-                            ? Colors.white.withOpacity(.444)
-                            : Colors.white.withOpacity(.012),
-                        shadowColor: !model.isOnDark
-                            ? Colors.white
-                            : Colors.transparent,
-                        surfaceTintColor: Colors.transparent, // Material 3 fix
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: !model.isOnDark
-                                    ? Colors.white.withOpacity(0.68)
-                                    : Colors
-                                          .transparent, // 👈 controls "how white"
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: Colors.white.withOpacity(
-                                    0.9,
-                                  ), // optional glass border
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 120),
+                        Card(
+                          elevation: 3,
+                          margin: EdgeInsets.symmetric(horizontal: 28.2),
+                          color: !model.isOnDark
+                              ? Colors.white.withOpacity(.444)
+                              : Colors.white.withOpacity(.012),
+                          shadowColor: !model.isOnDark
+                              ? Colors.white
+                              : Colors.transparent,
+                          surfaceTintColor:
+                              Colors.transparent, // Material 3 fix
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: !model.isOnDark
+                                      ? Colors.white.withOpacity(0.68)
+                                      : Colors
+                                            .transparent, // 👈 controls "how white"
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: Colors.white.withOpacity(
+                                      0.9,
+                                    ), // optional glass border
+                                  ),
                                 ),
-                              ),
-                              padding: const EdgeInsets.all(16),
-                              child: SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * .75,
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      TextView(
-                                        text: 'Profile',
-                                        textStyle: GoogleFonts.aBeeZee(
-                                          fontSize: 20.30,
-                                          fontWeight: FontWeight.w400,
-                                          color: !model.isOnDark
-                                              ? Colors.blue
-                                              : Colors.white,
+                                padding: const EdgeInsets.all(16),
+                                child: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * .75,
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        TextView(
+                                          text: 'Profile',
+                                          textStyle: GoogleFonts.aBeeZee(
+                                            fontSize: 20.30,
+                                            fontWeight: FontWeight.w400,
+                                            color: !model.isOnDark
+                                                ? Colors.blue
+                                                : Colors.white,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 22),
-                                      TextFormWidget(
-                                        hint: 'Name',
-                                        hintColor: !model.isOnDark
-                                            ? Colors.black
-                                            : Colors.white,
-                                        label: 'Enter full name',
-                                        labelStyle: TextStyle(
-                                          color: !model.isOnDark
-                                              ? Colors.grey
-                                              : Colors.white,
-                                        ),
-                                        borderTopLeft: 12,
-                                        borderTopRight: 12,
-                                        borderBottomLeft: 12,
-                                        borderBottomRight: 12,
-                                        readOnly: model.updateProfile,
-                                        isFilled: !model.isOnDark
-                                            ? false
-                                            : true,
-                                        fillColor: !model.isOnDark
-                                            ? Colors.white
-                                            : Colors.white.withOpacity(.3),
-                                        borderColor: Colors.blue,
-                                        controller: nameController,
-                                        style: TextStyle(
-                                          // 👈 THIS controls input text
-                                          color: !model.isOnDark
+                                        SizedBox(height: 22),
+                                        TextFormWidget(
+                                          hint: 'Name',
+                                          hintColor: !model.isOnDark
                                               ? Colors.black
                                               : Colors.white,
-                                          fontSize: 16,
+                                          label: 'Enter full name',
+                                          labelStyle: TextStyle(
+                                            color: !model.isOnDark
+                                                ? Colors.grey
+                                                : Colors.white,
+                                          ),
+                                          borderTopLeft: 12,
+                                          borderTopRight: 12,
+                                          borderBottomLeft: 12,
+                                          borderBottomRight: 12,
+                                          readOnly: model.updateProfile,
+                                          isFilled: !model.isOnDark
+                                              ? false
+                                              : true,
+                                          fillColor: !model.isOnDark
+                                              ? Colors.white
+                                              : Colors.white.withOpacity(.3),
+                                          borderColor: Colors.blue,
+                                          controller: nameController,
+                                          style: TextStyle(
+                                            // 👈 THIS controls input text
+                                            color: !model.isOnDark
+                                                ? Colors.black
+                                                : Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                          cursorColor: model.isOnDark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          validator:
+                                              AppValidator.validateString(),
                                         ),
-                                        cursorColor: model.isOnDark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        validator:
-                                            AppValidator.validateString(),
-                                      ),
-                                      SizedBox(height: 20),
-                                      TextFormWidget(
-                                        hint: 'Email',
-                                        hintColor: !model.isOnDark
-                                            ? Colors.black
-                                            : Colors.white,
-                                        label: 'Enter email address',
-                                        labelStyle: TextStyle(
-                                          color: !model.isOnDark
-                                              ? Colors.grey
-                                              : Colors.white,
-                                        ),
-                                        borderTopLeft: 12,
-                                        borderTopRight: 12,
-                                        borderBottomLeft: 12,
-                                        borderBottomRight: 12,
-                                        readOnly: model.updateProfile,
-                                        isFilled: !model.isOnDark
-                                            ? false
-                                            : true,
-                                        fillColor: !model.isOnDark
-                                            ? Colors.white
-                                            : Colors.white.withOpacity(.3),
-                                        borderColor: Colors.blue,
-                                        controller: emailController,
-                                        validator: AppValidator.validateEmail(),
-                                        style: TextStyle(
-                                          // 👈 THIS controls input text
-                                          color: !model.isOnDark
+                                        SizedBox(height: 20),
+                                        TextFormWidget(
+                                          hint: 'Email',
+                                          hintColor: !model.isOnDark
                                               ? Colors.black
                                               : Colors.white,
-                                          fontSize: 16,
+                                          label: 'Enter email address',
+                                          labelStyle: TextStyle(
+                                            color: !model.isOnDark
+                                                ? Colors.grey
+                                                : Colors.white,
+                                          ),
+                                          borderTopLeft: 12,
+                                          borderTopRight: 12,
+                                          borderBottomLeft: 12,
+                                          borderBottomRight: 12,
+                                          readOnly: model.updateProfile,
+                                          isFilled: !model.isOnDark
+                                              ? false
+                                              : true,
+                                          fillColor: !model.isOnDark
+                                              ? Colors.white
+                                              : Colors.white.withOpacity(.3),
+                                          borderColor: Colors.blue,
+                                          controller: emailController,
+                                          validator:
+                                              AppValidator.validateEmail(),
+                                          style: TextStyle(
+                                            // 👈 THIS controls input text
+                                            color: !model.isOnDark
+                                                ? Colors.black
+                                                : Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                          cursorColor: model.isOnDark
+                                              ? Colors.white
+                                              : Colors.black,
                                         ),
-                                        cursorColor: model.isOnDark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                      SizedBox(height: 20),
-                                      TextFormWidget(
-                                        hint: 'Address',
-                                        hintColor: !model.isOnDark
-                                            ? Colors.black
-                                            : Colors.white,
-                                        label: 'Enter business address',
-                                        labelStyle: TextStyle(
-                                          color: !model.isOnDark
-                                              ? Colors.grey
-                                              : Colors.white,
-                                        ),
-                                        borderTopLeft: 12,
-                                        borderTopRight: 12,
-                                        borderBottomLeft: 12,
-                                        borderBottomRight: 12,
-                                        readOnly: model.updateProfile,
-                                        isFilled: !model.isOnDark
-                                            ? false
-                                            : true,
-                                        fillColor: !model.isOnDark
-                                            ? Colors.white
-                                            : Colors.white.withOpacity(.3),
-                                        borderColor: Colors.blue,
-                                        controller: addressController,
-                                        validator:
-                                            AppValidator.validateString(),
-                                        style: TextStyle(
-                                          // 👈 THIS controls input text
-                                          color: !model.isOnDark
+                                        SizedBox(height: 20),
+                                        TextFormWidget(
+                                          hint: 'Address',
+                                          hintColor: !model.isOnDark
                                               ? Colors.black
                                               : Colors.white,
-                                          fontSize: 16,
+                                          label: 'Enter business address',
+                                          labelStyle: TextStyle(
+                                            color: !model.isOnDark
+                                                ? Colors.grey
+                                                : Colors.white,
+                                          ),
+                                          borderTopLeft: 12,
+                                          borderTopRight: 12,
+                                          borderBottomLeft: 12,
+                                          borderBottomRight: 12,
+                                          readOnly: model.updateProfile,
+                                          isFilled: !model.isOnDark
+                                              ? false
+                                              : true,
+                                          fillColor: !model.isOnDark
+                                              ? Colors.white
+                                              : Colors.white.withOpacity(.3),
+                                          borderColor: Colors.blue,
+                                          controller: addressController,
+                                          validator:
+                                              AppValidator.validateString(),
+                                          style: TextStyle(
+                                            // 👈 THIS controls input text
+                                            color: !model.isOnDark
+                                                ? Colors.black
+                                                : Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                          cursorColor: model.isOnDark
+                                              ? Colors.white
+                                              : Colors.black,
                                         ),
-                                        cursorColor: model.isOnDark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                      SizedBox(height: 20),
-                                      TextFormWidget(
-                                        hint: 'Country',
-                                        hintColor: !model.isOnDark
-                                            ? Colors.black
-                                            : Colors.white,
-                                        label: 'Enter your country',
-                                        readOnly: model.updateProfile,
-                                        labelStyle: TextStyle(
-                                          color: !model.isOnDark
-                                              ? Colors.grey
-                                              : Colors.white,
-                                        ),
-                                        borderTopLeft: 12,
-                                        borderTopRight: 12,
-                                        borderBottomLeft: 12,
-                                        borderBottomRight: 12,
-                                        isFilled: !model.isOnDark
-                                            ? false
-                                            : true,
-                                        fillColor: !model.isOnDark
-                                            ? Colors.white
-                                            : Colors.white.withOpacity(.3),
-                                        borderColor: Colors.blue,
-                                        controller: countryController,
-                                        validator:
-                                            AppValidator.validateString(),
-                                        style: TextStyle(
-                                          // 👈 THIS controls input text
-                                          color: !model.isOnDark
+                                        SizedBox(height: 20),
+                                        TextFormWidget(
+                                          hint: 'Country',
+                                          hintColor: !model.isOnDark
                                               ? Colors.black
                                               : Colors.white,
-                                          fontSize: 16,
+                                          label: 'Enter your country',
+                                          readOnly: model.updateProfile,
+                                          labelStyle: TextStyle(
+                                            color: !model.isOnDark
+                                                ? Colors.grey
+                                                : Colors.white,
+                                          ),
+                                          borderTopLeft: 12,
+                                          borderTopRight: 12,
+                                          borderBottomLeft: 12,
+                                          borderBottomRight: 12,
+                                          isFilled: !model.isOnDark
+                                              ? false
+                                              : true,
+                                          fillColor: !model.isOnDark
+                                              ? Colors.white
+                                              : Colors.white.withOpacity(.3),
+                                          borderColor: Colors.blue,
+                                          controller: countryController,
+                                          validator:
+                                              AppValidator.validateString(),
+                                          style: TextStyle(
+                                            // 👈 THIS controls input text
+                                            color: !model.isOnDark
+                                                ? Colors.black
+                                                : Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                          cursorColor: model.isOnDark
+                                              ? Colors.white
+                                              : Colors.black,
                                         ),
-                                        cursorColor: model.isOnDark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                      SizedBox(height: 20),
-                                      TextFormWidget(
-                                        hint: 'State',
-                                        hintColor: !model.isOnDark
-                                            ? Colors.black
-                                            : Colors.white,
-                                        label: 'Enter your state',
-                                        readOnly: model.updateProfile,
-                                        labelStyle: TextStyle(
-                                          color: !model.isOnDark
-                                              ? Colors.grey
-                                              : Colors.white,
-                                        ),
-                                        borderTopLeft: 12,
-                                        borderTopRight: 12,
-                                        borderBottomLeft: 12,
-                                        borderBottomRight: 12,
-                                        isFilled: !model.isOnDark
-                                            ? false
-                                            : true,
-                                        fillColor: !model.isOnDark
-                                            ? Colors.white
-                                            : Colors.white.withOpacity(.3),
-                                        borderColor: Colors.blue,
-                                        controller: stateController,
-                                        validator:
-                                            AppValidator.validateString(),
-                                        style: TextStyle(
-                                          // 👈 THIS controls input text
-                                          color: !model.isOnDark
+                                        SizedBox(height: 20),
+                                        TextFormWidget(
+                                          hint: 'State',
+                                          hintColor: !model.isOnDark
                                               ? Colors.black
                                               : Colors.white,
-                                          fontSize: 16,
+                                          label: 'Enter your state',
+                                          readOnly: model.updateProfile,
+                                          labelStyle: TextStyle(
+                                            color: !model.isOnDark
+                                                ? Colors.grey
+                                                : Colors.white,
+                                          ),
+                                          borderTopLeft: 12,
+                                          borderTopRight: 12,
+                                          borderBottomLeft: 12,
+                                          borderBottomRight: 12,
+                                          isFilled: !model.isOnDark
+                                              ? false
+                                              : true,
+                                          fillColor: !model.isOnDark
+                                              ? Colors.white
+                                              : Colors.white.withOpacity(.3),
+                                          borderColor: Colors.blue,
+                                          controller: stateController,
+                                          validator:
+                                              AppValidator.validateString(),
+                                          style: TextStyle(
+                                            // 👈 THIS controls input text
+                                            color: !model.isOnDark
+                                                ? Colors.black
+                                                : Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                          cursorColor: model.isOnDark
+                                              ? Colors.white
+                                              : Colors.black,
                                         ),
-                                        cursorColor: model.isOnDark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                      SizedBox(height: 20),
-                                      TextFormWidget(
-                                        hint: 'Local Govt Area',
-                                        hintColor: !model.isOnDark
-                                            ? Colors.black
-                                            : Colors.white,
-                                        label: 'Enter your LGA',
-                                        labelStyle: TextStyle(
-                                          color: !model.isOnDark
-                                              ? Colors.grey
-                                              : Colors.white,
-                                        ),
-                                        borderTopLeft: 12,
-                                        borderTopRight: 12,
-                                        borderBottomLeft: 12,
-                                        borderBottomRight: 12,
-                                        readOnly: model.updateProfile,
-                                        isFilled: !model.isOnDark
-                                            ? false
-                                            : true,
-                                        fillColor: !model.isOnDark
-                                            ? Colors.white
-                                            : Colors.white.withOpacity(.3),
-                                        borderColor: Colors.blue,
-                                        controller: lgaController,
-                                        validator:
-                                            AppValidator.validateString(),
-                                        style: TextStyle(
-                                          // 👈 THIS controls input text
-                                          color: !model.isOnDark
+                                        SizedBox(height: 20),
+                                        TextFormWidget(
+                                          hint: 'Local Govt Area',
+                                          hintColor: !model.isOnDark
                                               ? Colors.black
                                               : Colors.white,
-                                          fontSize: 16,
+                                          label: 'Enter your LGA',
+                                          labelStyle: TextStyle(
+                                            color: !model.isOnDark
+                                                ? Colors.grey
+                                                : Colors.white,
+                                          ),
+                                          borderTopLeft: 12,
+                                          borderTopRight: 12,
+                                          borderBottomLeft: 12,
+                                          borderBottomRight: 12,
+                                          readOnly: model.updateProfile,
+                                          isFilled: !model.isOnDark
+                                              ? false
+                                              : true,
+                                          fillColor: !model.isOnDark
+                                              ? Colors.white
+                                              : Colors.white.withOpacity(.3),
+                                          borderColor: Colors.blue,
+                                          controller: lgaController,
+                                          validator:
+                                              AppValidator.validateString(),
+                                          style: TextStyle(
+                                            // 👈 THIS controls input text
+                                            color: !model.isOnDark
+                                                ? Colors.black
+                                                : Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                          cursorColor: model.isOnDark
+                                              ? Colors.white
+                                              : Colors.black,
                                         ),
-                                        cursorColor: model.isOnDark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
 
-                                      SizedBox(height: 50),
-                                      ButtonWidget(
-                                        border: 10,
-                                        buttonColor: Colors.blue,
-                                        buttonText: model.updateProfile
-                                            ? 'Tap to Update'
-                                            : 'Update',
-                                        color: Colors.white,
-                                        buttonBorderColor: Colors.transparent,
-                                        isLoading: model.isLoading,
-                                        onPressed: model.updateProfile
-                                            ? () {
-                                                model.updateProfile = false;
-                                                model.notifyListeners();
-                                              }
-                                            : () {
-                                                if (formKey.currentState!
-                                                    .validate()) {
-                                                  model.updateUser(
-                                                    context,
-                                                    update:
-                                                        UpdatePharmacyProfileEntityModel(
-                                                          country:
-                                                              countryController
-                                                                  .text
-                                                                  .trim(),
-                                                          state: stateController
-                                                              .text
-                                                              .trim(),
-                                                          lga: lgaController
-                                                              .text
-                                                              .trim(),
-                                                          businessAddress:
-                                                              addressController
-                                                                  .text
-                                                                  .trim(),
-                                                          contactPersonName:
-                                                              nameController
-                                                                  .text
-                                                                  .trim(),
-                                                          contactEmail:
-                                                              emailController
-                                                                  .text
-                                                                  .trim(),
-                                                          servicesOffered: [],
-                                                          bankDetails: [],
-                                                        ),
-                                                  );
+                                        SizedBox(height: 50),
+                                        ButtonWidget(
+                                          border: 10,
+                                          buttonColor: Colors.blue,
+                                          buttonText: model.updateProfile
+                                              ? 'Tap to Update'
+                                              : 'Update',
+                                          color: Colors.white,
+                                          buttonBorderColor: Colors.transparent,
+                                          isLoading: model.isLoading,
+                                          onPressed: model.updateProfile
+                                              ? () {
+                                                  model.updateProfile = false;
+                                                  model.notifyListeners();
                                                 }
-                                              },
-                                      ),
-                                      SizedBox(height: 30),
-                                    ],
+                                              : () {
+                                                  if (formKey.currentState!
+                                                      .validate()) {
+                                                    model.updateUser(
+                                                      context,
+                                                      update:
+                                                          UpdatePharmacyProfileEntityModel(
+                                                            country:
+                                                                countryController
+                                                                    .text
+                                                                    .trim(),
+                                                            state:
+                                                                stateController
+                                                                    .text
+                                                                    .trim(),
+                                                            lga: lgaController
+                                                                .text
+                                                                .trim(),
+                                                            businessAddress:
+                                                                addressController
+                                                                    .text
+                                                                    .trim(),
+                                                            contactPersonName:
+                                                                nameController
+                                                                    .text
+                                                                    .trim(),
+                                                            contactEmail:
+                                                                emailController
+                                                                    .text
+                                                                    .trim(),
+                                                            servicesOffered: [],
+                                                            bankDetails: [],
+                                                          ),
+                                                    );
+                                                  }
+                                                },
+                                        ),
+                                        SizedBox(height: 30),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 20,
+                          ),
+                          child: ButtonWidget(
+                            border: 10,
+                            buttonColor: Colors.redAccent.withOpacity(.7),
+                            buttonText: 'Logout',
+                            color: Colors.white,
+                            buttonBorderColor: Colors.transparent,
+                            onPressed: () {},
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    ),
                   ),
                 ),
               ),
