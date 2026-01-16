@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, must_be_immutable
 
+import 'package:assessment/core/core_folder/app/app.router.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import 'text.dart';
@@ -100,7 +101,10 @@ class GlobalNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => navigate.back(),
+      onTap: () {
+        navigate.back();
+        navigate.navigateTo(Routes.dashoardScreen);
+      },
       child: Container(
         padding: EdgeInsets.all(4.10),
         decoration: BoxDecoration(

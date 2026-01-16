@@ -125,7 +125,7 @@ class ViewModel extends BaseViewModel {
   Future<void> getTenant(context) async {
     try {
       _isLoading = true;
-      
+
       _getTetantResponseModel = await runBusyFuture(
         repositoryImply.getTenant(),
         throwException: true,
